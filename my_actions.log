@@ -1,0 +1,50 @@
+2026-11-10T12:07:44.232434Z	    8 Query	SET GLOBAL log_output = 'FILE'
+2026-11-10T12:07:50.349386Z	    8 Query	SHOW VARIABLES LIKE 'general_log%'
+2026-11-10T12:10:20.522607Z	   10 Query	CREATE DATABASE shop_norm
+2026-11-10T12:10:21.098013Z	   10 Query	SELECT DATABASE()
+2026-11-10T12:10:26.575122Z	   10 Query	SHOW DATABASES
+2026-11-10T12:10:30.631512Z	   10 Query	CREATE TABLE orders_bad (
+2026-11-10T12:10:34.560832Z	   10 Query	INSERT INTO orders_bad (customer_name, customer_city, product_name, product_price, quantity, order_date) VALUES
+2026-11-10T12:10:38.069741Z	   10 Query	SHOW TABLES
+2026-11-10T12:10:38.652235Z	   10 Query	SELECT * FROM orders_bad
+2026-11-10T12:10:42.018378Z	   10 Query	UPDATE orders_bad
+2026-11-10T12:10:44.948547Z	   10 Query	SELECT * FROM orders_bad WHERE customer_name = 'Иван'
+2026-11-10T12:10:48.343229Z	   10 Query	DELETE FROM orders_bad WHERE order_id = 4
+2026-11-10T12:10:51.959249Z	   10 Query	SELECT * FROM orders_bad WHERE customer_name = 'Мария'
+2026-11-10T12:10:55.952136Z	   10 Query	INSERT INTO orders_bad (customer_name, customer_city)
+2026-11-10T12:10:59.451708Z	   10 Query	SELECT * FROM orders_bad WHERE customer_name = 'Новый клиент'
+2026-11-10T12:11:02.927390Z	   10 Query	DELETE FROM orders_bad WHERE customer_name = 'Новый клиент'
+2026-11-10T12:11:25.562129Z	   12 Query	SELECT DATABASE()
+2026-11-10T12:11:28.248495Z	   12 Query	DROP TABLE IF EXISTS order_items_3nf
+2026-11-10T12:11:28.290711Z	   12 Query	DROP TABLE IF EXISTS orders_3nf
+2026-11-10T12:11:28.325984Z	   12 Query	DROP TABLE IF EXISTS customers_3nf
+2026-11-10T12:11:28.821675Z	   12 Query	DROP TABLE IF EXISTS products_3nf
+2026-11-10T12:11:32.192139Z	   12 Query	CREATE TABLE customers_3nf (
+2026-11-10T12:11:32.249077Z	   12 Query	CREATE TABLE products_3nf (
+2026-11-10T12:11:32.304735Z	   12 Query	CREATE TABLE orders_3nf (
+2026-11-10T12:11:32.724874Z	   12 Query	CREATE TABLE order_items_3nf (
+2026-11-10T12:11:38.671651Z	   12 Query	SHOW TABLES
+2026-11-10T12:11:58.285898Z	   12 Query	DELETE FROM orders_bad WHERE customer_name = 'Новый клиент'
+2026-11-10T12:12:01.733325Z	   12 Query	SELECT * FROM orders_bad WHERE product_name IS NULL
+2026-11-10T12:12:08.278225Z	   12 Query	INSERT INTO customers_3nf (customer_name, customer_city)
+2026-11-10T12:12:08.304681Z	   12 Query	INSERT INTO products_3nf (product_name, product_price)
+2026-11-10T12:12:08.428148Z	   12 Query	INSERT INTO orders_3nf (order_id, customer_id, order_date)
+2026-11-10T12:12:08.892190Z	   12 Query	INSERT INTO order_items_3nf (order_id, product_id, quantity)
+2026-11-10T12:12:23.501049Z	   12 Query	SELECT SUM(product_price * quantity) AS total_old
+2026-11-10T12:12:24.097313Z	   12 Query	SELECT SUM(p.product_price * oi.quantity) AS total_new
+2026-11-10T12:12:27.285932Z	   12 Query	SELECT COUNT(DISTINCT order_id) AS old_count FROM orders_bad
+2026-11-10T12:12:27.289206Z	   12 Query	SELECT COUNT(*) AS new_count FROM orders_3nf
+2026-11-10T12:12:27.312332Z	   12 Query	SELECT COUNT(*) AS old_count FROM
+2026-11-10T12:12:27.314530Z	   12 Query	SELECT COUNT(*) AS new_count FROM customers_3nf
+2026-11-10T12:12:27.362254Z	   12 Query	SELECT COUNT(*) AS old_count FROM
+2026-11-10T12:12:27.848324Z	   12 Query	SELECT COUNT(*) AS new_count FROM products_3nf
+2026-11-10T12:12:31.471726Z	   12 Query	UPDATE customers_3nf SET customer_city = 'Сочи' WHERE customer_name = 'Иван'
+2026-11-10T12:12:32.408521Z	   12 Query	SELECT * FROM customers_3nf WHERE customer_name = 'Иван'
+2026-11-10T12:12:35.547840Z	   12 Query	DELETE FROM order_items_3nf
+2026-11-10T12:12:35.586373Z	   12 Query	DELETE FROM orders_3nf
+2026-11-10T12:12:36.072373Z	   12 Query	SELECT * FROM customers_3nf WHERE customer_name = 'Мария'
+2026-11-10T12:12:40.501726Z	   12 Query	INSERT INTO customers_3nf (customer_name, customer_city)
+2026-11-10T12:12:41.080826Z	   12 Query	SELECT * FROM customers_3nf WHERE customer_name = 'Новый клиент'
+2026-11-10T12:12:44.070133Z	   12 Query	RENAME TABLE orders_bad TO orders_bad_backup
+2026-11-10T12:12:55.811457Z	   12 Query	DROP TABLE orders_bad
+2026-11-10T12:15:54.039513Z	   13 Query	SHOW VARIABLES LIKE 'general_log%'
