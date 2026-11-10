@@ -1,0 +1,167 @@
+/usr/sbin/mysqld, Version: 8.0.46 (MySQL Community Server - GPL). started with:
+Tcp port: 3306  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+2026-11-10T12:07:44.232434Z	    8 Query	SET GLOBAL log_output = 'FILE'
+2026-11-10T12:07:50.349386Z	    8 Query	SHOW VARIABLES LIKE 'general_log%'
+2026-11-10T12:09:03.972716Z	    8 Quit	
+2026-11-10T12:10:01.859550Z	    9 Connect	root@localhost on  using Socket
+2026-11-10T12:10:01.859590Z	    9 Connect	Access denied for user 'root'@'localhost' (using password: YES)
+2026-11-10T12:10:16.328990Z	   10 Connect	root@localhost on  using Socket
+2026-11-10T12:10:16.329243Z	   10 Query	select @@version_comment limit 1
+2026-11-10T12:10:20.522607Z	   10 Query	CREATE DATABASE shop_norm
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci
+2026-11-10T12:10:21.098013Z	   10 Query	SELECT DATABASE()
+2026-11-10T12:10:21.098157Z	   10 Init DB	shop_norm
+2026-11-10T12:10:21.098794Z	   10 Query	show databases
+2026-11-10T12:10:21.100422Z	   10 Query	show tables
+2026-11-10T12:10:21.101375Z	   10 Field List	customers_3nf 
+2026-11-10T12:10:21.106134Z	   10 Field List	order_items_3nf 
+2026-11-10T12:10:21.106492Z	   10 Field List	orders_3nf 
+2026-11-10T12:10:21.106693Z	   10 Field List	orders_bad_backup 
+2026-11-10T12:10:21.107281Z	   10 Field List	products_3nf 
+2026-11-10T12:10:26.575122Z	   10 Query	SHOW DATABASES
+2026-11-10T12:10:30.631512Z	   10 Query	CREATE TABLE orders_bad (
+    order_id      INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    customer_city VARCHAR(100),
+    product_name  VARCHAR(100),
+    product_price INT,
+    quantity      INT,
+    order_date    DATE
+)
+2026-11-10T12:10:34.560832Z	   10 Query	INSERT INTO orders_bad (customer_name, customer_city, product_name, product_price, quantity, order_date) VALUES
+  ('Иван',  'Москва',          'Яблоки',   120, 2, '2026-10-01'),
+  ('Иван',  'Москва',          'Лимоны',   200, 1, '2026-10-01'),
+  ('Мария', 'Казань',          'Яблоки',   120, 3, '2026-10-02'),
+  ('Мария', 'Казань',          'Хурма',    350, 1, '2026-10-03'),
+  ('Пётр',  'Санкт-Петербург', 'Каштаны',  200, 2, '2026-10-04')
+2026-11-10T12:10:38.069741Z	   10 Query	SHOW TABLES
+2026-11-10T12:10:38.652235Z	   10 Query	SELECT * FROM orders_bad
+2026-11-10T12:10:42.018378Z	   10 Query	UPDATE orders_bad
+SET customer_city = 'Сочи'
+WHERE order_id = 1
+2026-11-10T12:10:44.948547Z	   10 Query	SELECT * FROM orders_bad WHERE customer_name = 'Иван'
+2026-11-10T12:10:48.343229Z	   10 Query	DELETE FROM orders_bad WHERE order_id = 4
+2026-11-10T12:10:51.959249Z	   10 Query	SELECT * FROM orders_bad WHERE customer_name = 'Мария'
+2026-11-10T12:10:55.952136Z	   10 Query	INSERT INTO orders_bad (customer_name, customer_city)
+VALUES ('Новый клиент', 'Тверь')
+2026-11-10T12:10:59.451708Z	   10 Query	SELECT * FROM orders_bad WHERE customer_name = 'Новый клиент'
+2026-11-10T12:11:02.927390Z	   10 Query	DELETE FROM orders_bad WHERE customer_name = 'Новый клиент'
+2026-11-10T12:11:06.941252Z	   10 Quit	
+2026-11-10T12:11:17.665381Z	   11 Connect	root@localhost on  using Socket
+2026-11-10T12:11:17.665413Z	   11 Connect	Access denied for user 'root'@'localhost' (using password: YES)
+2026-11-10T12:11:21.494938Z	   12 Connect	root@localhost on  using Socket
+2026-11-10T12:11:21.495084Z	   12 Query	select @@version_comment limit 1
+2026-11-10T12:11:25.562129Z	   12 Query	SELECT DATABASE()
+2026-11-10T12:11:25.562284Z	   12 Init DB	shop_norm
+2026-11-10T12:11:25.562844Z	   12 Query	show databases
+2026-11-10T12:11:25.563392Z	   12 Query	show tables
+2026-11-10T12:11:25.564239Z	   12 Field List	customers_3nf 
+2026-11-10T12:11:25.564428Z	   12 Field List	order_items_3nf 
+2026-11-10T12:11:25.564580Z	   12 Field List	orders_3nf 
+2026-11-10T12:11:25.564710Z	   12 Field List	orders_bad 
+2026-11-10T12:11:25.564875Z	   12 Field List	orders_bad_backup 
+2026-11-10T12:11:25.565048Z	   12 Field List	products_3nf 
+2026-11-10T12:11:28.248495Z	   12 Query	DROP TABLE IF EXISTS order_items_3nf
+2026-11-10T12:11:28.290711Z	   12 Query	DROP TABLE IF EXISTS orders_3nf
+2026-11-10T12:11:28.325984Z	   12 Query	DROP TABLE IF EXISTS customers_3nf
+2026-11-10T12:11:28.821675Z	   12 Query	DROP TABLE IF EXISTS products_3nf
+2026-11-10T12:11:32.192139Z	   12 Query	CREATE TABLE customers_3nf (
+    customer_id   INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    customer_city VARCHAR(100) NOT NULL
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-10T12:11:32.249077Z	   12 Query	CREATE TABLE products_3nf (
+    product_id    INT AUTO_INCREMENT PRIMARY KEY,
+    product_name  VARCHAR(100) NOT NULL,
+    product_price INT NOT NULL
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-10T12:11:32.304735Z	   12 Query	CREATE TABLE orders_3nf (
+    order_id    INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date  DATE NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers_3nf(customer_id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-10T12:11:32.724874Z	   12 Query	CREATE TABLE order_items_3nf (
+    order_id   INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity   INT NOT NULL,
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id)   REFERENCES orders_3nf(order_id),
+    FOREIGN KEY (product_id) REFERENCES products_3nf(product_id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-10T12:11:38.671651Z	   12 Query	SHOW TABLES
+2026-11-10T12:11:41.209156Z	   12 Query	TRUNCATE TABLE order_items_3nf
+2026-11-10T12:11:41.292705Z	   12 Query	TRUNCATE TABLE orders_3nf
+2026-11-10T12:11:41.293378Z	   12 Query	TRUNCATE TABLE customers_3nf
+2026-11-10T12:11:43.087210Z	   12 Query	TRUNCATE TABLE products_3nf
+2026-11-10T12:11:50.283892Z	   12 Query	SET FOREIGN_KEY_CHECKS = 0
+2026-11-10T12:11:50.286849Z	   12 Query	TRUNCATE TABLE order_items_3nf
+2026-11-10T12:11:50.378904Z	   12 Query	TRUNCATE TABLE orders_3nf
+2026-11-10T12:11:50.459803Z	   12 Query	TRUNCATE TABLE customers_3nf
+2026-11-10T12:11:50.533193Z	   12 Query	TRUNCATE TABLE products_3nf
+2026-11-10T12:11:50.849387Z	   12 Query	SET FOREIGN_KEY_CHECKS = 1
+2026-11-10T12:11:58.285898Z	   12 Query	DELETE FROM orders_bad WHERE customer_name = 'Новый клиент'
+2026-11-10T12:12:01.733325Z	   12 Query	SELECT * FROM orders_bad WHERE product_name IS NULL
+2026-11-10T12:12:05.056454Z	   12 Query	SET FOREIGN_KEY_CHECKS = 0
+2026-11-10T12:12:05.057329Z	   12 Query	TRUNCATE TABLE order_items_3nf
+2026-11-10T12:12:05.142314Z	   12 Query	TRUNCATE TABLE orders_3nf
+2026-11-10T12:12:05.232077Z	   12 Query	TRUNCATE TABLE customers_3nf
+2026-11-10T12:12:05.312306Z	   12 Query	TRUNCATE TABLE products_3nf
+2026-11-10T12:12:05.619718Z	   12 Query	SET FOREIGN_KEY_CHECKS = 1
+2026-11-10T12:12:08.278225Z	   12 Query	INSERT INTO customers_3nf (customer_name, customer_city)
+SELECT DISTINCT customer_name, customer_city
+FROM orders_bad
+2026-11-10T12:12:08.304681Z	   12 Query	INSERT INTO products_3nf (product_name, product_price)
+SELECT DISTINCT product_name, product_price
+FROM orders_bad
+2026-11-10T12:12:08.428148Z	   12 Query	INSERT INTO orders_3nf (order_id, customer_id, order_date)
+SELECT o.order_id, c.customer_id, o.order_date
+FROM orders_bad o
+JOIN customers_3nf c
+  ON c.customer_name = o.customer_name
+ AND c.customer_city = o.customer_city
+2026-11-10T12:12:08.892190Z	   12 Query	INSERT INTO order_items_3nf (order_id, product_id, quantity)
+SELECT o.order_id, p.product_id, o.quantity
+FROM orders_bad o
+JOIN products_3nf p
+  ON p.product_name = o.product_name
+ AND p.product_price = o.product_price
+2026-11-10T12:12:23.501049Z	   12 Query	SELECT SUM(product_price * quantity) AS total_old
+FROM orders_bad
+2026-11-10T12:12:24.097313Z	   12 Query	SELECT SUM(p.product_price * oi.quantity) AS total_new
+FROM order_items_3nf oi
+JOIN products_3nf p ON oi.product_id = p.product_id
+2026-11-10T12:12:27.285932Z	   12 Query	SELECT COUNT(DISTINCT order_id) AS old_count FROM orders_bad
+2026-11-10T12:12:27.289206Z	   12 Query	SELECT COUNT(*) AS new_count FROM orders_3nf
+2026-11-10T12:12:27.312332Z	   12 Query	SELECT COUNT(*) AS old_count FROM
+  (SELECT DISTINCT customer_name, customer_city FROM orders_bad) AS t
+2026-11-10T12:12:27.314530Z	   12 Query	SELECT COUNT(*) AS new_count FROM customers_3nf
+2026-11-10T12:12:27.362254Z	   12 Query	SELECT COUNT(*) AS old_count FROM
+  (SELECT DISTINCT product_name, product_price FROM orders_bad) AS t
+2026-11-10T12:12:27.848324Z	   12 Query	SELECT COUNT(*) AS new_count FROM products_3nf
+2026-11-10T12:12:31.471726Z	   12 Query	UPDATE customers_3nf SET customer_city = 'Сочи' WHERE customer_name = 'Иван'
+2026-11-10T12:12:32.408521Z	   12 Query	SELECT * FROM customers_3nf WHERE customer_name = 'Иван'
+2026-11-10T12:12:35.547840Z	   12 Query	DELETE FROM order_items_3nf
+WHERE order_id IN (
+    SELECT o.order_id
+    FROM orders_3nf o
+    JOIN customers_3nf c ON o.customer_id = c.customer_id
+    WHERE c.customer_name = 'Мария'
+)
+2026-11-10T12:12:35.586373Z	   12 Query	DELETE FROM orders_3nf
+WHERE customer_id IN (
+    SELECT customer_id FROM customers_3nf WHERE customer_name = 'Мария'
+)
+2026-11-10T12:12:36.072373Z	   12 Query	SELECT * FROM customers_3nf WHERE customer_name = 'Мария'
+2026-11-10T12:12:40.501726Z	   12 Query	INSERT INTO customers_3nf (customer_name, customer_city)
+VALUES ('Новый клиент', 'Тверь')
+2026-11-10T12:12:41.080826Z	   12 Query	SELECT * FROM customers_3nf WHERE customer_name = 'Новый клиент'
+2026-11-10T12:12:44.070133Z	   12 Query	RENAME TABLE orders_bad TO orders_bad_backup
+2026-11-10T12:12:55.811457Z	   12 Query	DROP TABLE orders_bad
+2026-11-10T12:13:21.299443Z	   12 Quit	
+2026-11-10T12:14:25.210356Z	   13 Connect	root@localhost on  using Socket
+2026-11-10T12:14:25.210547Z	   13 Query	select @@version_comment limit 1
+2026-11-10T12:15:54.039513Z	   13 Query	SHOW VARIABLES LIKE 'general_log%'
+2026-11-10T12:16:44.853998Z	   13 Quit	
