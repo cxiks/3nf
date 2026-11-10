@@ -1,5 +1,4 @@
 
-```markdown
 # 📊 Нормализация данных в MySQL (Практическое руководство)
 
 **Окружение:** Windows 10/11, Docker Desktop, Visual Studio Code, Git Bash.
@@ -40,7 +39,7 @@ default-character-set = utf8mb4
 
 [mysql]
 default-character-set = utf8mb4
-```
+
 
 > ⚠️ **Важно для Windows:** 
 > 1. Убедитесь, что VS Code не добавил расширение `.txt` к имени файла.
